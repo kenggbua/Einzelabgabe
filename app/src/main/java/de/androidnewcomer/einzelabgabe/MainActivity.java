@@ -34,24 +34,87 @@ public class MainActivity extends AppCompatActivity {
     String matrikelNummer = input.getText().toString();
     char[] sort = new char[matrikelNummer.length()];
     int buffer = 0;
+    int buffer2 = 0;
+    int countEven = 0;
 
-        for (int i = 0; i < matrikelNummer.length(); i++) {
+        for (int i = 0; i < matrikelNummer.length(); i++) {                 // zählt wieviele geraden Zahlen vorhanden sind
             if(matrikelNummer.charAt(i) % 2 == 0){
-                sort[buffer] = matrikelNummer.charAt(i);
-                buffer++;
+                countEven++;
             }
         }
 
-        for (int i = 0; i < matrikelNummer.length(); i++) {
-            if(matrikelNummer.charAt(i) % 2 != 0){
-                sort[buffer] = matrikelNummer.charAt(i);
-                buffer++;
+        char[] sortEven = new char[countEven];
+        char[] sortUneven = new char[matrikelNummer.length() - countEven];
+
+
+
+
+        for (int i = 0; i < sort.length; i++) {
+            if(matrikelNummer.charAt(i) % 2 == 0){
+                sortEven[buffer2] = matrikelNummer.charAt(i);
+                buffer2++;
             }
         }
+        buffer2 = 0;
+
+        sortEven = bubblesort(sortEven);
+
+
+        for (int i = 0; i < sort.length; i++) {
+            if(matrikelNummer.charAt(i) % 2 != 0){
+                sortUneven[buffer2] = matrikelNummer.charAt(i);
+                buffer2++;
+            }
+        }
+       sortUneven = bubblesort(sortUneven);
+
+        for (int i = 0; i < sortEven.length; i++) {
+            sort[i] = sortEven[i];
+            buffer++;
+        }
+
+        for (int i = 0; i < sortUneven.length; i++) {
+            sort[buffer] = sortUneven[i];
+            buffer++;
+        }
+
 
         sortiert.setText(Arrays.toString(sort));
 
 
+
+    }
+
+    public char[] bubblesort(char[] toSort){
+
+        char buffer = ' ';
+
+
+
+        boolean swapped;
+        int n = toSort.length;
+
+
+        do {
+            swapped = false;
+            for (int i = 0; i < n - 1; i++) {
+                if(toSort[i] > toSort[i+1]){
+                    buffer = toSort[i];
+                    toSort[i] = toSort[i+1];
+                    toSort[i+1] = buffer;
+                    swapped = true;
+                }
+        }
+        n -= 1;
+
+        }while(swapped);
+
+
+
+
+
+
+        return toSort;
 
     }
 
