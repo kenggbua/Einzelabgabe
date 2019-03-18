@@ -89,8 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
         char buffer = ' ';
 
-
-
         boolean swapped;
         int n = toSort.length;
 
@@ -122,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendToServer(View v) {
         String studentNumber = input.getText().toString();
-        String sendedAnswer;
+        String sentAnswer;
         TCPClient tcpClient = new TCPClient();
 
         tcpClient.setStudentNumber(studentNumber);
@@ -130,15 +128,15 @@ public class MainActivity extends AppCompatActivity {
         tcpClient.start(); //start Thread
 
         try {
-            tcpClient.join(100000); //wait max. 10 millisec for the end of thread
-            sendedAnswer = tcpClient.getServerAnswer();
+            tcpClient.join(1000); //wait max. 10 millisec for the end of thread
+            sentAnswer = tcpClient.getServerAnswer();
 
 
         } catch (InterruptedException e) {
-            sendedAnswer = "Could not reach port. Check your internet connection!";
+            sentAnswer = "Could not reach port. Check your internet connection!";
         }
 
-        serverAnswer.setText(sendedAnswer);
+        serverAnswer.setText(sentAnswer);
 
 
     }
